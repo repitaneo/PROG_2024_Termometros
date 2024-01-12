@@ -1,10 +1,16 @@
 package termometro;
 
+import java.util.Arrays;
+
 public class Termometro {
 
 	
 	private int mes;
 	private float temperaturas[];
+	
+	private float maxima;
+	private float minima;
+	private float media;
 	
 	
 	
@@ -13,9 +19,94 @@ public class Termometro {
 		this.mes = mes;
 		establecerDiasMes(mes);
 		rellenarTemperaturas(mes);
+		
+		// calcular las estadisticas
+		calculosEstadisticos();
 	}
 
 
+	
+	
+	private void calculosEstadisticos() {
+		
+		this.maxima = -1000;
+		this.minima = 1000;
+		float suma = 0;
+		
+		for(int i=0;i<temperaturas.length;i++) {
+			
+			if(temperaturas[i]>this.maxima) {
+				this.maxima = temperaturas[i];
+			}
+			if(temperaturas[i]<this.minima) {
+				this.minima = temperaturas[i];
+			}
+			suma += temperaturas[i];
+		}
+		this.media = suma / temperaturas.length;
+	}
+
+
+
+
+	public float getMinima() {
+		
+		// crear una variable y ponerle un valor grande
+		float minima = 1000;
+		// buscar los valores de temperatura
+		for(int i=0;i<temperaturas.length;i++) {
+			// compararlos con el min
+			// si es menor guardo la nueva min
+			if(temperaturas[i]<minima) {
+				
+				minima = temperaturas[i];
+			}
+		}
+		// devuelvo la min
+		return minima;
+	}
+	
+	
+	
+
+	
+	public float getMedia() {
+		
+		// crear una variable para sumar todos los valores
+		float suma = 0;
+		// recorro el vector sumando los valores
+		for(int i=0;i<temperaturas.length;i++) {
+
+			suma += temperaturas[i];
+		}
+		// devuelvo la media
+		return suma/temperaturas.length;
+	}	
+	
+	
+	
+	
+	public float getMaxima() {
+		
+		// crear una variable y ponerle un valor pequeño
+		float maxima = -1000;
+		// buscar los valores de temperatura
+		for(int i=0;i<temperaturas.length;i++) {
+			// compararlos con el max
+			// si es mayor guardo la nueva max
+			if(temperaturas[i]>maxima) {
+				
+				maxima = temperaturas[i];
+			}
+		}
+		// devuelvo la max
+		return maxima;
+	}
+	
+	
+	
+	
+	
 
 
 
@@ -42,11 +133,7 @@ public class Termometro {
 	}
 
 	
-	
-	
-	
-	
-	
+
 	
 	
 	private void establecerDiasMes(int mes) {
@@ -68,4 +155,16 @@ public class Termometro {
 		}
 	}
 
+	
+	
+	
+	@Override
+	public String toString() {
+		return "Termometro [" + Arrays.toString(temperaturas) + "]\n"
+				+ "max ("+maxima+")\n"
+				+ "min ("+minima+")\n"
+				+ "media ("+media+")";
+	}
+	
+	
 }
