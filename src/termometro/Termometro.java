@@ -11,6 +11,8 @@ public class Termometro {
 	private float maxima;
 	private float minima;
 	private float media;
+	private float maximaDiasPares;
+	private float mediaDiasImpares;
 	
 	
 	
@@ -30,8 +32,12 @@ public class Termometro {
 	private void calculosEstadisticos() {
 		
 		this.maxima = -1000;
+		this.maximaDiasPares = -1000;
 		this.minima = 1000;
 		float suma = 0;
+		float sumaImpares = 0;
+		float diasImpares = 0;
+
 		
 		for(int i=0;i<temperaturas.length;i++) {
 			
@@ -42,12 +48,39 @@ public class Termometro {
 				this.minima = temperaturas[i];
 			}
 			suma += temperaturas[i];
+			
+			if(i%2!=0) {
+				
+				// miramos los días pares
+				if(temperaturas[i]>maximaDiasPares) {
+					maximaDiasPares = temperaturas[i];
+				}
+			}
+			else {
+
+				// miramos los días impares la media de temperatura
+				mediaDiasImpares = 0;
+				sumaImpares += temperaturas[i]; 
+				diasImpares++;
+			}
 		}
 		this.media = suma / temperaturas.length;
+		mediaDiasImpares = sumaImpares/diasImpares;
 	}
 
 
 
+	public float getMaximaDiasPares() {
+		return maximaDiasPares;
+	}
+	
+	
+	public float getMediaDiasImpares() {
+		
+		return mediaDiasImpares;
+	}
+	
+	
 
 	public float getMinima() {
 		
