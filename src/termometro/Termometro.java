@@ -13,6 +13,8 @@ public class Termometro {
 	private float media;
 	private float maximaDiasPares;
 	private float mediaDiasImpares;
+	private float minimaQuincena1;
+	private float minimaQuincena2;
 	
 	
 	
@@ -37,18 +39,32 @@ public class Termometro {
 		float suma = 0;
 		float sumaImpares = 0;
 		float diasImpares = 0;
+		minimaQuincena1 = 1000;
+		minimaQuincena2 = 1000;
 
 		
 		for(int i=0;i<temperaturas.length;i++) {
 			
+			// minimas por quincenas
+			if((i<=14) && (temperaturas[i]<minimaQuincena1)) {
+				minimaQuincena1 = temperaturas[i]; 
+			}
+			else if((i>=15) && (temperaturas[i]<minimaQuincena2)) {
+				minimaQuincena2 = temperaturas[i];
+			}
+			
+			// maxima del mes
 			if(temperaturas[i]>this.maxima) {
 				this.maxima = temperaturas[i];
 			}
+			// minima del mes
 			if(temperaturas[i]<this.minima) {
 				this.minima = temperaturas[i];
 			}
+			// suma de temperaturas para la media
 			suma += temperaturas[i];
 			
+			// calculos estadísticos avanzados que me solicitan
 			if(i%2!=0) {
 				
 				// miramos los días pares
@@ -197,6 +213,17 @@ public class Termometro {
 				+ "max ("+maxima+")\n"
 				+ "min ("+minima+")\n"
 				+ "media ("+media+")";
+	}
+
+
+
+
+	public float getMinQuincena(int quincena) {
+		
+		if(quincena == 1) {
+			return minimaQuincena1;
+		}
+		else return minimaQuincena2;
 	}
 	
 	

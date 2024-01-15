@@ -14,6 +14,8 @@ public class Start {
 		System.out.println("la media es "+termometro.getMedia());
 		System.out.println("la max dias pares es "+termometro.getMaximaDiasPares());
 		System.out.println("la media dias impares es "+termometro.getMediaDiasImpares());
+		System.out.println("la minima de la quincena "+termometro.getMinQuincena(1));
+		System.out.println("la minima de la quincena "+termometro.getMinQuincena(2));
 		
 
 	}
